@@ -37,7 +37,7 @@ export async function POST(req) {
     if (data && data.results && data.results[0]) {
       // Set the formatted address as the location name
       const location = data?.results[0]?.formatted_address;
-      console.log(data?.results[0]);
+      // console.log(data?.results[0]);
       return NextResponse.json({ location }, { status: 200 });
     } else {
       NextResponse.json(
