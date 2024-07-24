@@ -12,13 +12,31 @@ export async function POST(req) {
       );
     }
 
+    // ---------------- 1) Using Openstreetmap api (free) ----------------
+    // const response = await fetch(
+    //   `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${long}&addressdetails=1`
+    // );
+    // const data = await response.json();
+
+    // if (data && data.display_name) {
+    //   const location = data.display_name;
+    //   return NextResponse.json({ location }, { status: 200 });
+    // } else {
+    //   NextResponse.json(
+    //     { error: "Failed to fetch location." },
+    //     { status: 400 }
+    //   );
+    // }
+
+    // ---------------- 2) Using Google map api ----------------
     const response = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${long}&addressdetails=1`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${process.env.GOOGLE_MAPS_API_KEY}`
     );
     const data = await response.json();
 
-    if (data && data.display_name) {
-      const location = data.display_name;
+    if (data && data.results && data.results[0]) {
+      // Set the formatted address as the location name
+      const location = data?.results[0]?.formatted_address;
       return NextResponse.json({ location }, { status: 200 });
     } else {
       NextResponse.json(
@@ -26,6 +44,7 @@ export async function POST(req) {
         { status: 400 }
       );
     }
+
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

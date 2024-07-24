@@ -10,11 +10,13 @@
 
 /* ------------------------- Dark mode / Light mode Styles ------------------------- */
 .dark-mode {
-  background-color: #1a1a1a; /* Dark background */
+  /* Dark background */
+  background-color: #1a1a1a;
 }
 
 .light-mode {
-  background-color: #ffffff; /* Light background */
+  /* Light background */
+  background-color: #ffffff; 
 }
 
 .dark-mode .text-title {

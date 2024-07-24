@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "./Loader";
 
 const LocationPage = () => {
   const dispatch = useDispatch();
@@ -54,6 +55,8 @@ const LocationPage = () => {
 
   return (
     <>
+      {isLoading && <Loader color={theme === "dark" ? "#021526" : "#4C3BCF"} />}
+
       <section
         className={`text-gray-600 body-font min-w-full min-h-screen ${
           theme === "dark" ? "dark-mode" : "light-mode"
@@ -92,6 +95,7 @@ const LocationPage = () => {
                 onClick={() => {
                   getLocation();
                 }}
+                disabled={isLoading}
                 className="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
               >
                 {isLoading ? "Loading..." : "Get Location"}
